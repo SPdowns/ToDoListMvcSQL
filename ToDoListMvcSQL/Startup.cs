@@ -43,6 +43,6 @@ namespace ToDoListMvcSQL
   }
   public static class DBConfiguration
   {
-    public static string ConnectionString = "server=licalhost;user id=root;password=epicodus;port3306;database=to_do_list;";
+    public static string ConnectionString = "server=localhost;user id=root;password=epicodus;port3306;database=to_do_list;";
   }
 }

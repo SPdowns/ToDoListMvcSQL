@@ -7,14 +7,11 @@ namespace ToDoListMvcSQL.Models
   {
     public string Description { get; set; }
     public int Id { get; }
-
-    public Item(string description)
+    public Item(string description, int id)
     {
       Description = description;
-      _instances.Add(this);
-      Id = _instances.Count;
+      Id = id;
     }
-
     public static List<Item> GetAll()
     {
       List<Item> allItems = new List<Item> {};
@@ -37,10 +34,18 @@ namespace ToDoListMvcSQL.Models
       }
       return allItems;
     }
-
     public static void ClearAll()
     {
-      
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"DELETE FROM items;";
+      cmd.ExecuteNonQuery();
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
     }
     public static Item Find(int searchId)
     {
